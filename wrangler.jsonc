@@ -34,6 +34,24 @@
 	],
 	"observability": {
 		"enabled": true
+	},
+	/**
+	 * R2 Bucket binding
+	 * Stores processed feedback with extracted data
+	 */
+	"r2_buckets": [
+		{
+			"bucket_name": "feedback-processed",
+			"binding": "FEEDBACK_STORAGE"
+		}
+	],
+	/**
+	 * AI Search binding (formerly AutoRAG)
+	 * AI search service for feedback
+	 */
+	"ai": {
+		"binding": "AI",
+		"remote": true
 	}
 	/**
 	 * Smart Placement
