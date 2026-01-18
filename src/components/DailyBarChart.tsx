@@ -38,24 +38,41 @@ export default function DailyBarChart({ data }: DailyBarChartProps) {
 		return null;
 	};
 
-	// Format date for display (MM/DD)
+	// Format date for display (MM/DD/YYYY)
 	const formatDate = (dateStr: string) => {
 		const date = new Date(dateStr);
-		return `${date.getMonth() + 1}/${date.getDate()}`;
+		const month = String(date.getMonth() + 1).padStart(2, '0');
+		const day = String(date.getDate()).padStart(2, '0');
+		const year = date.getFullYear();
+		return `${month}/${day}/${year}`;
 	};
 
+	// Calculate max count for Y-axis domain
+	const maxCount = Math.max(...data.map(d => d.count), 1);
+	// Generate Y-axis ticks with step of 1
+	const yAxisTicks = Array.from({ length: maxCount + 1 }, (_, i) => i);
+
 	return (
-		<div className="w-full h-64">
+		<div className="w-full h-64 -mx-2">
 			<ResponsiveContainer width="100%" height="100%">
-				<BarChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-					<CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+				<BarChart data={data} margin={{ top: 5, right: 5, left: 0, bottom: 0 }}>
+					<CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
 					<XAxis
 						dataKey="date"
 						tickFormatter={formatDate}
 						stroke="#6b7280"
-						style={{ fontSize: '12px' }}
+						style={{ fontSize: '11px' }}
+						angle={-45}
+						textAnchor="end"
+						height={50}
 					/>
-					<YAxis stroke="#6b7280" style={{ fontSize: '12px' }} />
+					<YAxis 
+						stroke="#6b7280" 
+						style={{ fontSize: '12px' }}
+						domain={[0, maxCount]}
+						ticks={yAxisTicks}
+						allowDecimals={false}
+					/>
 					<Tooltip content={<CustomTooltip />} />
 					<Bar dataKey="count" fill="#3B82F6" radius={[4, 4, 0, 0]} />
 				</BarChart>

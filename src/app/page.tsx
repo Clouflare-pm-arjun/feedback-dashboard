@@ -339,9 +339,9 @@ export default function Dashboard() {
 					</div>
 
 					{/* Right Side - Charts and Table (40%) */}
-					<div className="space-y-6 flex flex-col">
+					<div className="space-y-6 flex flex-col max-h-[calc(100vh-8rem)]">
 						{/* Category Pie Chart */}
-						<div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+						<div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800 flex-shrink-0">
 							<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
 								Feedback Distribution by Category
 							</h2>
@@ -349,19 +349,19 @@ export default function Dashboard() {
 						</div>
 
 						{/* Daily Bar Chart */}
-						<div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
-							<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+						<div className="bg-white dark:bg-gray-900 px-6 pt-6 pb-4 rounded-lg border border-gray-200 dark:border-gray-800 flex-shrink-0">
+							<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
 								Daily Feedback Distribution
 							</h2>
 							<DailyBarChart data={daily} />
 						</div>
 
 						{/* Data Table Section */}
-						<div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800 flex-1 min-h-0 flex flex-col">
-							<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+						<div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800 flex-1 min-h-0 flex flex-col overflow-hidden">
+							<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4 flex-shrink-0">
 								Feedback Data ({feedbacks.length} items)
 							</h2>
-							<div className="flex-1 overflow-auto">
+							<div className="flex-1 overflow-auto min-h-0">
 								<FeedbackTable data={feedbacks} />
 							</div>
 						</div>
