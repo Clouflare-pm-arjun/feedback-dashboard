@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 export interface ChatMessage {
@@ -15,9 +16,18 @@ interface ChatContainerProps {
 }
 
 export default function ChatContainer({ messages, isStreaming = false }: ChatContainerProps) {
+	const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+	// Auto-scroll to bottom when messages change or when streaming
+	useEffect(() => {
+		if (scrollContainerRef.current) {
+			scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+		}
+	}, [messages, isStreaming]);
+
 	return (
-		<div className="w-full bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4 mb-4">
-			<div className="space-y-4 max-h-96 overflow-y-auto">
+		<div className="w-full h-[600px] lg:h-[calc(100vh-20rem)] bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4 flex flex-col mb-4">
+			<div ref={scrollContainerRef} className="space-y-4 flex-1 overflow-y-auto min-h-0">
 				{messages.length === 0 ? (
 					<div className="text-center text-gray-500 dark:text-gray-400 py-8">
 						Start a conversation by searching or clicking a prompt

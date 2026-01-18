@@ -302,7 +302,7 @@ export default function Dashboard() {
 
 	return (
 		<div className="min-h-screen bg-white dark:bg-black p-4 sm:p-8">
-			<div className="max-w-7xl mx-auto space-y-8">
+			<div className="w-full space-y-8">
 				{/* Header */}
 				<div className="flex items-center justify-between">
 					<h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
@@ -325,40 +325,47 @@ export default function Dashboard() {
 					</div>
 				)}
 
-				{/* Chat Container */}
-				<ChatContainer messages={chatMessages} isStreaming={isStreaming} />
-
-				{/* Query Input Section */}
-				<div className="space-y-4">
-					<QueryInput onSearch={handleSearch} isLoading={isSearching} />
-					<PromptCards onPromptClick={handlePromptClick} />
-				</div>
-
-				{/* Charts Section */}
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-					{/* Category Pie Chart */}
-					<div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
-						<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
-							Feedback Distribution by Category
-						</h2>
-						<CategoryPieChart data={categories} />
+				{/* Main Layout: 60% Chat, 40% Charts/Table */}
+				<div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8">
+					{/* Left Side - Chat Container and Input (60%) */}
+					<div className="flex flex-col">
+						{/* Chat Container - Fixed height with internal scroll */}
+						<ChatContainer messages={chatMessages} isStreaming={isStreaming} />
+						{/* Input and Prompts - At bottom */}
+						<div className="space-y-4 mt-4 flex-shrink-0">
+							<QueryInput onSearch={handleSearch} isLoading={isSearching} />
+							<PromptCards onPromptClick={handlePromptClick} />
+						</div>
 					</div>
 
-					{/* Daily Bar Chart */}
-					<div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
-						<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
-							Daily Feedback Distribution
-						</h2>
-						<DailyBarChart data={daily} />
-					</div>
-				</div>
+					{/* Right Side - Charts and Table (40%) */}
+					<div className="space-y-6 flex flex-col">
+						{/* Category Pie Chart */}
+						<div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+							<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+								Feedback Distribution by Category
+							</h2>
+							<CategoryPieChart data={categories} />
+						</div>
 
-				{/* Data Table Section */}
-				<div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
-					<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
-						Feedback Data ({feedbacks.length} items)
-					</h2>
-					<FeedbackTable data={feedbacks} />
+						{/* Daily Bar Chart */}
+						<div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+							<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+								Daily Feedback Distribution
+							</h2>
+							<DailyBarChart data={daily} />
+						</div>
+
+						{/* Data Table Section */}
+						<div className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800 flex-1 min-h-0 flex flex-col">
+							<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+								Feedback Data ({feedbacks.length} items)
+							</h2>
+							<div className="flex-1 overflow-auto">
+								<FeedbackTable data={feedbacks} />
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
