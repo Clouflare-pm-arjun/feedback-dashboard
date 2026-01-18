@@ -1,6 +1,6 @@
 import { getCloudflareContext } from '@opennextjs/cloudflare';
 import { NextRequest, NextResponse } from 'next/server';
-import type { SearchResponse, SearchResult, ProcessedFeedback } from '@/types/feedback';
+import type { SearchResponse } from '@/types/feedback';
 
 /**
  * POST /api/search

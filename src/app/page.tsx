@@ -84,7 +84,7 @@ export default function Dashboard() {
 
 		// Add assistant message placeholder
 		const assistantMessageId = `assistant-${Date.now()}`;
-		let assistantMessage: ChatMessage = {
+		const assistantMessage: ChatMessage = {
 			id: assistantMessageId,
 			type: 'assistant',
 			content: '',
@@ -136,7 +136,7 @@ export default function Dashboard() {
 												if (parsed.response) {
 													accumulatedContent += parsed.response;
 												}
-											} catch (e) {
+											} catch {
 												// Skip invalid JSON
 											}
 										}
@@ -196,7 +196,7 @@ export default function Dashboard() {
 											)
 										);
 									}
-								} catch (e) {
+								} catch {
 									// Skip invalid JSON
 								}
 							}
